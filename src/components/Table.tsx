@@ -5,7 +5,7 @@ import 'react-casino-roulette/dist/index.css';
 import { useBets } from '../contexts/Bet';
 
 export const Table = () => {
-    const { updateBet, clearBets } = useBets()
+    const { updateBet, clearBets, simplify } = useBets()
     const [betsUI, setBetsUI] = useState({});
     const [mode, setMode] = useState<'add' | 'remove'>('add')
 
@@ -92,6 +92,7 @@ export const Table = () => {
                 ))}
             </ul>
             <div className='flex flex-row justify-center'>
+                {/* <button className='px-3 py-1 bg-gray-600 rounded-sm' onClick={simplify}>Simplify bets</button> */}
                 <button className='px-3 py-1 bg-gray-600 rounded-sm' onClick={clear}>Clear</button>
             </div>
         </div>

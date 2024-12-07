@@ -21,14 +21,14 @@ function BetSummary() {
     }
 
     return (
-        <div className='text-center text-l'>
-            <div className='flex flex-col justify-center gap-1 md:mt-0 md:gap-6 md:flex-row'>
-                <span className='opacity-95'>Total bet: ${total}</span>
-                <span className='text-xl' data-tooltip="No">Chance to win: {getWinChance()}%</span>
+        <div className='text-center'>
+            <div className='flex flex-col justify-center md:mt-0 '>
+                <span className='text-xl'>Total bet: ${total}</span>
+                <span className='text-2xl' data-tooltip="No">Chance to win: {getWinChance()}%</span>
             </div >
             <div className='flex flex-col justify-center gap-1 md:mt-0 md:gap-6 md:flex-row'>
-                <span className='text-xl'>Avg profit: ${getAvgProfit()}</span>
-                <span className='opacity-95'>Avg when win: ${getAvgWin()}</span>
+                <span className='text-l'>Average profit: ${getAvgProfit()}</span>
+                <span className='opacity-80'>Avg when win: ${getAvgWin()}</span>
             </div >
         </div >
     )

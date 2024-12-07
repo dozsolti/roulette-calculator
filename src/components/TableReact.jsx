@@ -112,10 +112,10 @@ const TableReact = () => {
   }, [numberList]);
 
   const renderTable = () => {
-    return (<div className="flex w-full mt-2 overflow-x-scroll min-w-min fl-c md:overflow-auto max-w-7xl 2xl:max-w-none">
+    return (<div className="flex w-full px-4 mt-2 overflow-x-scroll min-w-min fl-c md:overflow-auto max-w-7xl 2xl:max-w-none">
       <table className="w-full overflow-scroll text-left border-separate table-auto md:overflow-auto font-inter border-spacing-y-0 borer ">
         <thead className="w-full text-base font-semibold text-white rounded-lg bg-green-950">
-          <tr className="">
+          <tr className="md:grid md:grid-cols-[1fr_1fr]">
             <th className="px-3 py-3 font-bold sm:text-base whitespace-nowrap group">
               <div className="flex items-center">
                 <svg
@@ -150,7 +150,7 @@ const TableReact = () => {
                 </span>
               </div>
             </th>
-            <th className="flex items-center px-3 py-3 font-bold sm:text-base whitespace-nowrap group">
+            <th className="flex items-center justify-end px-3 py-3 font-bold sm:text-base whitespace-nowrap group">
               <svg
                 className={`w-4 h-4 cursor-pointer  ${sortingColumn?.includes("profit")
                   ? "rotate-180"
@@ -183,13 +183,13 @@ const TableReact = () => {
             </th>
           </tr>
         </thead>
-        <tbody className="flex flex-wrap w-full">
+        <tbody className="md:grid md:grid-cols-[1fr_1fr_1fr]">
           {sortingData?.map((data, index) => (
-            <tr key={index} className={`w-full md:w-1/2 xl:w-1/3  ${data.profit < 0 ? 'bg-red-700' : data.profit > 0 ? 'bg-green-700' : 'bg-transparent'}`}>
-              <td className={`px-3 py-1 text-base font-normal whitespace-nowrap  ${data.profit < 0 ? 'bg-red-700' : data.profit > 0 ? 'bg-green-700' : 'bg-transparent'}`}>
+            <tr key={index} className={`border ${data.profit < 0 ? 'bg-red-800' : data.profit > 0 ? 'bg-green-800' : 'bg-transparent'}`}>
+              <td className={`px-3 py-1 text-base font-normal whitespace-nowrap  ${data.profit < 0 ? 'bg-red-800' : data.profit > 0 ? 'bg-green-800' : 'bg-transparent'}`}>
                 {data.name}
               </td>
-              <td className={`px-4 text-base font-normal ${data.profit < 0 ? 'bg-red-700' : data.profit > 0 ? 'bg-green-700' : 'bg-transparent'}`}>
+              <td className={`px-4 text-base font-normal ${data.profit < 0 ? 'bg-red-800' : data.profit > 0 ? 'bg-green-800' : 'bg-transparent'}`}>
                 {"$" + data.profit}
               </td>
             </tr>

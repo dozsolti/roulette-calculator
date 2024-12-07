@@ -1,4 +1,4 @@
-import { BetData } from "../contexts/Bet.types";
+import { BetData, Bets } from "../contexts/Bet.types";
 
 export function getNumberNameByIndex(i: number): string {
     return i === 0 ? '00' : i === 1 ? '0' : (i - 1).toString()
@@ -31,3 +31,45 @@ export function calculatePayout(betId: string, amount: number) {
 50 - second double strip
 125 - 19 to 36
 */
+
+
+const DOZENS = [
+    '1ST_DOZEN',
+    '2ND_DOZEN',
+    '3RD_DOZEN',
+]
+const COLUMNS = [
+    '1ST_COLUMN',
+    '2ND_COLUMN',
+    '3RD_COLUMN',
+]
+export function simplifyBets(bets: Bets): Bets {
+    let keys = Object.keys(bets)
+    let arr = Object.entries(bets)
+
+    if (
+        DOZENS.every(x => x in bets)
+    ) {
+
+        let min = Math.min(...arr.map(x => x[1].amount))
+        for (let dozenName of DOZENS)
+            bets[dozenName].amount -= min;
+
+    }
+    if (
+        COLUMNS.every(x => x in bets)
+    ) {
+
+        let min = Math.min(...arr.map(x => x[1].amount))
+        for (let dozenName of COLUMNS)
+            bets[dozenName].amount -= min;
+
+    }
+
+    for (let k in bets) {
+        if (bets[k].amount <= 0)
+            delete bets[k]
+    }
+
+    return { ...bets };
+}

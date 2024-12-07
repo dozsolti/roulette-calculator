@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useMemo, useState } from 'react';
-import { calculatePayout, calculatePayoutByNumber, getNumberNameByIndex } from '../utils/roulette';
+import { calculatePayout, calculatePayoutByNumber, getNumberNameByIndex, simplifyBets } from '../utils/roulette';
 import { Bets, BetData } from './Bet.types';
 
 const BetContext = createContext<{
@@ -10,6 +10,8 @@ const BetContext = createContext<{
     updateBet: (betId: string, amount: number, mode:
         'add' | 'remove', payload: string[]
     ) => any,
+    setBetAmount: (betId: string, betAmount: number) => void,
+    simplify: () => void,
     clearBets: () => void,
 }>(null as any);
 
@@ -19,7 +21,7 @@ const BetProvider = ({ children }: { children: ReactNode }) => {
         // '1-2-3-4-5-6': { amount: 50, payload: '1-2-3-4-5-6'.split('-') },
         //  '7-8-9-10-11-12': { amount: 50, payload: '7-8-9-10-11-12'.split('-') },
         //  '19 TO 36': { amount: 125, payload: ['19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36'] }
-        
+
 
         // "1ST_COLUMN": { amount: 25, payload: ['1', '4', '7', '10', '13', '16', '19', '22', '25', '28', '31', '34'], },
         // "3RD_COLUMN": { amount: 25, payload: ['3', '6', '9', '12', '15', '18', '21', '24', '27', '30', '33', '36'] },
@@ -74,14 +76,24 @@ const BetProvider = ({ children }: { children: ReactNode }) => {
 
     }
 
+    const setBetAmount = (betId: string, betAmount: number) => {
+        setBets(state => {
+            state[betId].amount = betAmount;
+            return { ...state };
+        })
+    }
+
     const clearBets = () => {
         setBets({})
     }
 
-
+    const simplify = () => {
+        console.log(bets)
+        setBets(simplifyBets);
+    }
 
     return (
-        <BetContext.Provider value={{ bets, betsData, numberList, total, updateBet, clearBets }}>
+        <BetContext.Provider value={{ bets, betsData, numberList, total, updateBet, simplify, setBetAmount, clearBets }}>
             {children}
         </BetContext.Provider>
     );

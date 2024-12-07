@@ -7,3 +7,5 @@ export type BetData = {
     numbers: string[]
 }
 export type BetsData = Record<string, BetData>
+
+export type BetUpdateMode = 'add' | 'remove' | 'set';
